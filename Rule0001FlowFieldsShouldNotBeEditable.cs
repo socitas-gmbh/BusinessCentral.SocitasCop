@@ -2,7 +2,7 @@ using Microsoft.Dynamics.Nav.CodeAnalysis;
 using Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics;
 using System.Collections.Immutable;
 
-namespace CustomCodeCop;
+namespace SocitasCodeCop;
 
 [DiagnosticAnalyzer]
 public class Rule0001FlowFieldsShouldNotBeEditable : DiagnosticAnalyzer

@@ -9,7 +9,7 @@
             "type": "shell",
             "args": [
                 "build",
-                "CustomCodeCop.csproj",
+                "SocitasCodeCop.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
