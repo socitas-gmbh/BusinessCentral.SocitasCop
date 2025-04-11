@@ -46,13 +46,13 @@ runs:
 
     - name: Build
       shell: pwsh
-      run: dotnet build SocitasCop.csproj /p:FeatureFlags=${{ steps.get-feature-flags.outputs.feature-flags }} --configuration Release
+      run: dotnet build BusinessCentral.SocitasCop.csproj /p:FeatureFlags=${{ steps.get-feature-flags.outputs.feature-flags }} --configuration Release
 
     - name: Cache NuGet packages
       uses: actions/cache@v4
       with:
         path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/SocitasCop.Test/*.csproj') }}
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/BusinessCentral.SocitasCop.Test/*.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
 
@@ -62,7 +62,7 @@ runs:
       if: ${{ inputs.asset-publish == 'true' }}
       with:
         name: ${{ inputs.asset-name }}
-        path: bin/Release/netstandard2.1/SocitasCop.dll
+        path: bin/Release/netstandard2.1/BusinessCentral.SocitasCop.dll
         compression-level: 0 # no compression
 
     ### Upload Asset as Latest
@@ -71,8 +71,8 @@ runs:
       uses: actions/upload-artifact@v4
       if: ${{ inputs.asset-publish == 'true' && inputs.al-latest == 'true' }}
       with:
-        name: SocitasCop.dll
-        path: bin/Release/netstandard2.1/SocitasCop.dll
+        name: BusinessCentral.SocitasCop.dll
+        path: bin/Release/netstandard2.1/BusinessCentral.SocitasCop.dll
         compression-level: 0 # no compression
 
     ### Upload Asset as Pre-Release
@@ -81,6 +81,6 @@ runs:
       uses: actions/upload-artifact@v4
       if: ${{ inputs.asset-publish == 'true' && inputs.al-prerelease == 'true' }}
       with:
-        name: SocitasCop.AL-PreRelease.dll
-        path: bin/Release/netstandard2.1/SocitasCop.dll
+        name: BusinessCentral.SocitasCop.AL-PreRelease.dll
+        path: bin/Release/netstandard2.1/BusinessCentral.SocitasCop.dll
         compression-level: 0 # no compression

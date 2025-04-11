@@ -107,7 +107,7 @@ jobs:
         if: false # enable for Code signing
         with:
           base-directory: ${{ github.workspace }}\BuildArtifacts
-          description: "SocitasCop"
+          description: "BusinessCentral.SocitasCop"
           description-url: https://github.com/${{ github.repository }}
           azure-key-vault-url: ${{ secrets.KEY_VAULT_URL }}
           azure-key-vault-certificate: ${{ secrets.KEY_VAULT_CERTIFICATE }}
