@@ -22,12 +22,12 @@ runs:
       run: |
         # Get list of artifacts files
         $artifacts = Get-ChildItem -Path $env:SOURCE_PATH -Recurse -File
-        | Where-Object { $_.Name -like 'SocitasCop*.dll' -and  $_.Directory.Name -like 'SocitasCop*.dll' }
+        | Where-Object { $_.Name -like 'BusinessCentral.SocitasCop*.dll' -and  $_.Directory.Name -like 'BusinessCentral.SocitasCop*.dll' }
 
         # Create folder if not exits
         if (!(Test-Path $env:TARGET_PATH)) {
             New-Item -Path $env:TARGET_PATH -ItemType Directory -Force | Out-Null
         }
 
-        # Move the artifacts (SocitasCop.dll) in every directory to a combined folder and rename the file to the name of it's parent directory
+        # Move the artifacts (BusinessCentral.SocitasCop.dll) in every directory to a combined folder and rename the file to the name of it's parent directory
         $artifacts | ForEach-Object { Move-Item -Path $_ -Destination (Join-Path $env:TARGET_PATH $_.Directory.Name) }
