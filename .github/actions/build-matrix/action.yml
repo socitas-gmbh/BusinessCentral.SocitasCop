@@ -35,7 +35,7 @@ runs:
         foreach ($item in $sources) {
             $matrix += [Ordered]@{
                 version      = $item.version;
-                assetname    = "SocitasCodeCop.AL-$($item.version).dll";
+                assetname    = "SocitasCop.AL-$($item.version).dll";
                 assetUri     = $item.source;
                 latest       = $($item.version -eq $env:AL_VERSION_LATEST);
                 prerelease   = $($item.version -eq $env:AL_VERSION_PRERELEASE);

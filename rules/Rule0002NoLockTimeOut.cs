@@ -3,7 +3,7 @@ using Microsoft.Dynamics.Nav.CodeAnalysis.Syntax;
 using Microsoft.Dynamics.Nav.CodeAnalysis.Diagnostics;
 using System.Collections.Immutable;
 
-namespace SocitasCodeCop;
+namespace SocitasCop;
 
 [DiagnosticAnalyzer]
 public class Rule0002NoLockTimeOut : DiagnosticAnalyzer
