@@ -6,6 +6,10 @@ on:
       - prerelease
   pull_request:
   workflow_dispatch: null
+# Runs of the same branch wait for each other, so two pushes never replace the assets of the same draft at once
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
