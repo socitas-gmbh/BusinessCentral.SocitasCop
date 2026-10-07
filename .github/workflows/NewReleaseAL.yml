@@ -86,6 +86,8 @@ jobs:
       - setup
       - build
     if: github.event_name != 'pull_request' # Exclude this job for validation on the pull-request
+    permissions:
+      contents: write # delete and upload release assets
     steps:
       - uses: actions/checkout@v4
 

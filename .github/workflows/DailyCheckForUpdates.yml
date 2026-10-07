@@ -8,6 +8,9 @@ jobs:
   job:
     name: Run
     runs-on: ubuntu-latest
+    permissions:
+      actions: write # gh workflow run NewReleaseAL.yml
+      contents: read
     steps:
       - name: Generate hash from Marketplace items
         id: generate_hash
