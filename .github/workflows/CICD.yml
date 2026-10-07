@@ -13,16 +13,15 @@ jobs:
     name: Setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Create Release
         id: create-release
-        uses: release-drafter/release-drafter@v6
+        uses: release-drafter/release-drafter@v7
         if: github.event_name != 'pull_request'
         with:
           prerelease: ${{ github.ref != 'refs/heads/master' }}
           commitish: ${{ github.ref }}
-          disable-autolabeler: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -52,7 +51,7 @@ jobs:
       matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build artifact
         id: dotnet-build
@@ -74,7 +73,7 @@ jobs:
       - build
     if: github.event_name != 'pull_request' # Exclude this job for validation on the pull-request
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download artifacts
         id: download-artifacts

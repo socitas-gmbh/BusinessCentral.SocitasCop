@@ -15,7 +15,7 @@ jobs:
     name: Setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Get AL Languages from Marketplace
         id: marketplace
@@ -65,7 +65,7 @@ jobs:
       matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build artifact
         id: dotnet-build
@@ -89,7 +89,7 @@ jobs:
     permissions:
       contents: write # delete and upload release assets
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Azure Login
         uses: azure/login@v2
