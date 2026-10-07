@@ -98,6 +98,7 @@ jobs:
           $artifacts = Get-ChildItem -Path $env:ARTIFACTS_PATH -Depth 0 -Filter *.dll
 
           # Loop through each artifact and upload it using curl (which handles multipart form data)
+          $failedUploads = @()
           $artifacts | ForEach-Object {
               $asset_name = $_.Name
               $asset_path = $_.FullName
@@ -110,5 +111,10 @@ jobs:
                 -H "X-GitHub-Api-Version: 2022-11-28" `
                 -H "Content-Type: application/octet-stream" `
                 "$($upload_url)?name=$($asset_name)" `
-                --data-binary `@"$asset_path"
+                --data-binary `@"$asset_path" `
+                --fail
+              if ($LASTEXITCODE -ne 0) { $failedUploads += $asset_name }
           }
+
+          # Try every upload first, then fail the step so a failed upload is not silently ignored
+          if ($failedUploads) { throw "Upload failed for: $($failedUploads -join ', ')" }
