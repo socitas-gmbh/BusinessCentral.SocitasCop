@@ -18,10 +18,10 @@ jobs:
       - name: Create Release
         id: create-release
         uses: release-drafter/release-drafter@v7
-        if: github.event_name != 'pull_request'
         with:
           prerelease: ${{ github.ref != 'refs/heads/master' }}
           commitish: ${{ github.ref }}
+          dry-run: ${{ github.event_name == 'pull_request' }} # validates the release-drafter config on pull requests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
