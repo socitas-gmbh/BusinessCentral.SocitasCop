@@ -30,13 +30,13 @@ jobs:
 
       - name: Get hash value from cache
         id: get_hash
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: ${{ runner.temp }}/hash.txt
           key: al-marketplace-hash-${{ steps.generate_hash.outputs.hash }}
           fail-on-cache-miss: false
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: steps.get_hash.outputs.cache-hit != 'true'
 
       - name: Trigger for executing check of new release of the AL Language
@@ -62,7 +62,7 @@ jobs:
       - name: Add new hash value to cache
         id: add_hash
         if: steps.get_hash.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: ${{ runner.temp }}/hash.txt
           key: al-marketplace-hash-${{ steps.generate_hash.outputs.hash }}

@@ -52,7 +52,7 @@ runs:
         dotnet build BusinessCentral.SocitasCop.csproj --no-restore /p:FeatureFlags=${{ steps.get-feature-flags.outputs.feature-flags }} /p:TargetFramework=${{ steps.get-platform-artifacts.outputs.target-framework }} --configuration Release
 
     - name: Cache NuGet packages
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/BusinessCentral.SocitasCop.Test/*.csproj') }}
@@ -61,7 +61,7 @@ runs:
 
     - name: Upload build artifact
       id: upload-build-asset
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: ${{ inputs.asset-publish == 'true' }}
       with:
         name: ${{ inputs.asset-name }}
@@ -72,7 +72,7 @@ runs:
     ### Upload Asset as Latest
     - name: Upload build artifact (Latest)
       id: upload-build-asset-latest
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: ${{ inputs.asset-publish == 'true' && inputs.al-latest == 'true' }}
       with:
         name: BusinessCentral.SocitasCop.dll
@@ -83,7 +83,7 @@ runs:
     ### Upload Asset as Pre-Release
     - name: Upload build artifact (Pre-Release)
       id: upload-build-asset-prerelease
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       if: ${{ inputs.asset-publish == 'true' && inputs.al-prerelease == 'true' }}
       with:
         name: BusinessCentral.SocitasCop.AL-PreRelease.dll
