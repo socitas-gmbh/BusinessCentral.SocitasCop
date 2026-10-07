@@ -46,7 +46,10 @@ runs:
 
     - name: Build
       shell: pwsh
-      run: dotnet build BusinessCentral.SocitasCop.csproj /p:FeatureFlags=${{ steps.get-feature-flags.outputs.feature-flags }} --configuration Release
+      # Restore separately: the implicit restore of dotnet build ignores a TargetFramework passed on the command line (NETSDK1005)
+      run: |
+        dotnet restore BusinessCentral.SocitasCop.csproj /p:TargetFramework=${{ steps.get-platform-artifacts.outputs.target-framework }}
+        dotnet build BusinessCentral.SocitasCop.csproj --no-restore /p:FeatureFlags=${{ steps.get-feature-flags.outputs.feature-flags }} /p:TargetFramework=${{ steps.get-platform-artifacts.outputs.target-framework }} --configuration Release
 
     - name: Cache NuGet packages
       uses: actions/cache@v4
@@ -62,7 +65,8 @@ runs:
       if: ${{ inputs.asset-publish == 'true' }}
       with:
         name: ${{ inputs.asset-name }}
-        path: bin/Release/netstandard2.1/BusinessCentral.SocitasCop.dll
+        path: bin/Release/${{ steps.get-platform-artifacts.outputs.target-framework }}/BusinessCentral.SocitasCop.dll
+        if-no-files-found: error
         compression-level: 0 # no compression
 
     ### Upload Asset as Latest
@@ -72,7 +76,8 @@ runs:
       if: ${{ inputs.asset-publish == 'true' && inputs.al-latest == 'true' }}
       with:
         name: BusinessCentral.SocitasCop.dll
-        path: bin/Release/netstandard2.1/BusinessCentral.SocitasCop.dll
+        path: bin/Release/${{ steps.get-platform-artifacts.outputs.target-framework }}/BusinessCentral.SocitasCop.dll
+        if-no-files-found: error
         compression-level: 0 # no compression
 
     ### Upload Asset as Pre-Release
@@ -82,5 +87,6 @@ runs:
       if: ${{ inputs.asset-publish == 'true' && inputs.al-prerelease == 'true' }}
       with:
         name: BusinessCentral.SocitasCop.AL-PreRelease.dll
-        path: bin/Release/netstandard2.1/BusinessCentral.SocitasCop.dll
+        path: bin/Release/${{ steps.get-platform-artifacts.outputs.target-framework }}/BusinessCentral.SocitasCop.dll
+        if-no-files-found: error
         compression-level: 0 # no compression
