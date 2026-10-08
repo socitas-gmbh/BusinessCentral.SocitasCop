@@ -18,7 +18,7 @@ You might want to delete the Draft release created since it will contain dlls fr
 After that, the Repo should be ready for getting started with development.
 
 I recommend you use GitHub Codespaces for getting started, as the ContainerPrep script will take care about everything that needs to be set up.
-If you prefer to run it locally, just know that you will need to have dotnet installed. The Prep Script might need a few tweaks as well.
+If you prefer to run it locally, you need the .NET SDK for the runtime of the current AL Language: .NET 10 for AL Language 18. The Prep Script runs on Windows as well.
 
 Once the Codespace is ready, use `F1` to open the command pallete and search for `Run Task`, choose the `Prep Codespace` task from the list.
 
@@ -26,6 +26,8 @@ At the end of this file, it will try to open new tab of vs code within the codes
 This will open the test AL project for you so you can debug your analyzer.
 
 Also note, that the app create does not have any dependencies, also not against Mircosoft Application, that way we do not need any symbols.
+
+After an update of the AL Language, run the `Prep Codespace` task again instead of only `LoadALLanguageDependency`. It points the AL project at the build for the runtime of the new AL Language and keeps your `app.json` and `test.al`.
 
 ## Debugging
 

@@ -4,4 +4,5 @@ $listing = Invoke-WebRequest -Method POST -UseBasicParsing -Uri https://marketpl
 $vsixUrl_Current = $listing.results.extensions.versions | Where-Object properties -ne $null | Where-Object { $_.properties.key -notcontains 'Microsoft.VisualStudio.Code.PreRelease' } | Select-Object -First 1 -ExpandProperty files | Where-Object { $_.assetType -eq 'Microsoft.VisualStudio.Services.VSIXPackage' } | Select-Object -ExpandProperty source;
 Invoke-WebRequest $vsixUrl_Current -OutFile ALLanguage.zip;
 ./.github/actions/platform-artifacts/Expand-PlatformArtifact.ps1 ALLanguage.zip ALLanguage;
+./.github/actions/platform-artifacts/Get-TargetFramework.ps1 ALLanguage/Microsoft.Dynamics.Nav.CodeAnalysis.dll | Set-Content ALLanguage/TargetFramework.txt;
 Remove-Item -Path ALLanguage.zip -Force -ErrorAction SilentlyContinue;
