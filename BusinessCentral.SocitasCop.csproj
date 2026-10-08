@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <!-- Local builds target the runtime of the AL Language that .vscode/LoadALLanguage.ps1 downloaded; the CI passes /p:TargetFramework -->
+    <TargetFramework Condition="Exists('ALLanguage/TargetFramework.txt')">$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)/ALLanguage/TargetFramework.txt').Trim())</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>Latest</LangVersion>
   </PropertyGroup>

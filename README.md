@@ -18,7 +18,7 @@ You might want to delete the Draft release created since it will contain dlls fr
 After that, the Repo should be ready for getting started with development.
 
 I recommend you use GitHub Codespaces for getting started, as the ContainerPrep script will take care about everything that needs to be set up.
-If you prefer to run it locally, just know that you will need to have dotnet installed. The Prep Script might need a few tweaks as well.
+If you prefer to run it locally, you need the .NET SDK for the runtime of the current AL Language: .NET 10 for AL Language 18. The Prep Script runs on Windows as well.
 
 Once the Codespace is ready, use `F1` to open the command pallete and search for `Run Task`, choose the `Prep Codespace` task from the list.
 

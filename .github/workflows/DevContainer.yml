@@ -1,0 +1,19 @@
+name: DevContainer
+on:
+  pull_request:
+  workflow_dispatch: null
+permissions:
+  contents: read
+jobs:
+  prep:
+    name: Prep Codespace and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run Test-ContainerPrep.ps1 in the devcontainer image
+        shell: pwsh
+        run: |
+          # Read the image from devcontainer.json, so the test runs what Codespaces runs
+          $image = (Get-Content .devcontainer/devcontainer.json -Raw | ConvertFrom-Json).image
+          docker run --rm --volume "${PWD}:/workspaces/repo" --workdir /workspaces/repo $image pwsh -NoProfile -File ./.devcontainer/Test-ContainerPrep.ps1
