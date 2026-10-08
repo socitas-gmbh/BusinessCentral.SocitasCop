@@ -5,10 +5,11 @@ Write-Host "Creating AL Project for debugging"
 $Path = (Get-Item $PSScriptRoot -force).parent.parent
 $targetFramework = Get-Content ALLanguage/TargetFramework.txt
 
-# The files are overwritten, so the script can run again after an AL Language update changed the target framework
 New-Item -ItemType Directory "$Path/AlDebugProject/.vscode" -Force | Out-Null
 
-Set-Content "$Path/AlDebugProject/app.json" @'
+# app.json and test.al are kept when the script runs again, so changes made while debugging survive an AL Language update
+if (-not (Test-Path "$Path/AlDebugProject/app.json")) {
+    Set-Content "$Path/AlDebugProject/app.json" @'
 {
   "id": "d700542d-5688-4e64-aecb-648fa385a652",
   "name": "ALProject1",
@@ -16,8 +17,10 @@ Set-Content "$Path/AlDebugProject/app.json" @'
   "version": "1.0.0.0"
 }
 '@
+}
 
-Set-Content "$Path/AlDebugProject/test.al" @'
+if (-not (Test-Path "$Path/AlDebugProject/test.al")) {
+    Set-Content "$Path/AlDebugProject/test.al" @'
 table 1 MyTable
 {
     fields
@@ -31,7 +34,9 @@ table 1 MyTable
     }
 }
 '@
+}
 
+# settings.json is rewritten, as it points at the build for the target framework of the current AL Language
 [ordered]@{
     'al.codeAnalyzers' = @("$(((Get-Item $PSScriptRoot -force).parent).FullName)/bin/Debug/$targetFramework/BusinessCentral.SocitasCop.dll")
     'al.enableCodeAnalysis' = $true

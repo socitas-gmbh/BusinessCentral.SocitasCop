@@ -27,6 +27,8 @@ This will open the test AL project for you so you can debug your analyzer.
 
 Also note, that the app create does not have any dependencies, also not against Mircosoft Application, that way we do not need any symbols.
 
+After an update of the AL Language, run the `Prep Codespace` task again instead of only `LoadALLanguageDependency`. It points the AL project at the build for the runtime of the new AL Language and keeps your `app.json` and `test.al`.
+
 ## Debugging
 
 For debugging you will first need to rebuild the project to have it reflect the latest changes, if you did not do so already, clone the second tab with the AL Project. Otherwise the AL Lanauage server, which is responsible for the diagnosics/warnings in vs code, might block the .dll and prevent the Compiler from replacing it.
